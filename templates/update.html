@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puppy Weights</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div class="title">
+        <h1>Puppy Weights</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="{{ url_for('new_weight_page') }}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>New Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name, weight in latest_data %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td><input type="number" name="weights[]" required></td> <!-- Input field for new weight -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="title">
+                <button type="submit" class="btn">Submit</button>
+            </div>
+        </form>
+        <div class="title">
+            <a href="{{ url_for('index') }}" class="back-btn">Back</a>
+        </div>
+    </div>
+</body>
+</html>

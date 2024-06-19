@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puppy Weights</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div class="title">
+        <h1>Puppy Weights</h1>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Latest Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, weight in latest_data %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ weight }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="title">
+        <a href="{{ url_for('new_weight_page') }}" class="btn">Add New Weight</a>
+    </div>
+</body>
+</html>
