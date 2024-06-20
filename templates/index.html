@@ -8,6 +8,147 @@
     <div class="title">
         <h1>Puppy Weights</h1>
     </div>
+
+    <!-- Midnight Modal -->
+    <div id="MidnightModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, weight in midnight %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ weight }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img src="{{ midnight_plot_url }}" alt="Midnight Weight Prediction Plot">
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('MidnightModal')">Close</button> <!-- Close button below the table -->
+        </div>
+    </div>
+
+    <!-- Trevor Modal -->
+    <div id="TrevorModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, weight in trevor %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ weight }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img src="{{ trevor_plot_url }}" alt="Trevor Weight Prediction Plot">    
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('TrevorModal')">Close</button> <!-- Close button below the table -->
+        </div>
+    </div>
+
+    <!-- CC Modal -->
+    <div id="CCModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, weight in cc %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ weight }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img src="{{ cc_plot_url }}" alt="CC Weight Prediction Plot">    
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('CCModal')">Close</button> <!-- Close button below the table -->
+        </div>
+    </div>
+
+    <!-- Lilith Modal -->
+    <div id="LilithModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, weight in lilith %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ weight }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img src="{{ lilith_plot_url }}" alt="Lilith Weight Prediction Plot">    
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('LilithModal')">Close</button> <!-- Close button below the table -->
+        </div>
+    </div>
+
+    <!-- Raven Modal -->
+    <div id="RavenModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, weight in raven %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ weight }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <img src="{{ raven_plot_url }}" alt="Raven Weight Prediction Plot">    
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('RavenModal')">Close</button> <!-- Close button below the table -->
+        </div>
+    </div>
+
     <div class="container">
         <table>
             <thead>
@@ -19,15 +160,60 @@
             <tbody>
                 {% for name, weight in latest_data %}
                 <tr>
-                    <td>{{ name }}</td>
+                    <td><span class="openModalBtn" data-modal-id="{{ name }}Modal">{{ name }}</span></td>
                     <td>{{ weight }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    
     <div class="title">
         <a href="{{ url_for('new_weight_page') }}" class="btn">Add New Weight</a>
     </div>
+
+    <script>
+        // Function to open modal
+        function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden"; // Prevent scrolling of background content
+            } else {
+                console.error("Modal with ID '" + modalId + "' not found.");
+            }
+        }
+    
+        // Function to close modal
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // Restore scrolling to background content
+            } else {
+                console.error("Modal with ID '" + modalId + "' not found.");
+            }
+        }
+    
+        // Get all modal open buttons
+        var modalBtns = document.getElementsByClassName("openModalBtn");
+    
+        // Attach click event listener to each modal open button
+        for (var i = 0; i < modalBtns.length; i++) {
+            modalBtns[i].addEventListener('click', function() {
+                var modalId = this.getAttribute('data-modal-id');
+                openModal(modalId);
+            });
+        }
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                var modalId = event.target.id;
+                closeModal(modalId);
+            }
+        }
+    </script>
+    
 </body>
 </html>
