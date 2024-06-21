@@ -8,7 +8,7 @@ body {
     font-size: 25px; /* Font size */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    min-height: 100vh; /* Minimum height of 100% of the viewport height */
+    min-height: 110vh; /* Minimum height of 100% of the viewport height */
 }
 
 .title {
@@ -126,7 +126,7 @@ td:last-child {
 
 .modal-content {
     position: relative;
-    margin: 10% auto; /* Adjusted for spacing */
+    margin: auto; /* Adjusted for spacing */
     padding: 20px;
     width: 80%;
     max-width: 1000px;
