@@ -133,3 +133,8 @@ td:last-child {
     border-radius: 10px;
     text-align: center; /* Center align content */
 }
+
+.openModalBtn:hover {
+    color: rgb(165, 0, 0);
+    cursor: pointer;
+}
