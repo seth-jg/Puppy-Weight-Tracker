@@ -1,29 +1,71 @@
+/* General styles */
+
 body {
     background-image: url('../img/trixie.jpg'); /* Replace with the path to your image */
     background-size: cover; /* Ensures the image covers the entire background */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-position: center center; /* Centers the image */
-    background-attachment: fixed; /* Fixes the background position */
     font-family: 'Arial', sans-serif; /* Font family */
     font-size: 25px; /* Font size */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    min-height: 110vh; /* Minimum height of 100% of the viewport height */
+    min-height: 110%; /* Minimum height of 100% of the viewport height */
 }
 
+/* Dropdown container */
+.title select {
+    width: 60%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    margin-top: 20px;
+}
+
+/* Title styling */
 .title {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     color: white;
-    margin-top: 20px; /* Adjust margin as needed */
+    margin-top: 20px;
+    padding: 10px;
+    flex-direction: column;
 }
 
+.title h1 {
+    margin-bottom: 20px;
+}
+
+/* Dropdown options */
+.title select option {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+}
+
+/* Hover effect for dropdown */
+.title select:hover {
+    border-color: rgb(165, 0, 0);
+}
+
+/* Focus effect for dropdown */
+.title select:focus {
+    outline: none;
+    border-color: rgb(165, 0, 0);
+}
+
+/* Container for the table */
 .container {
     width: 80%;
     margin: 20px auto; /* Center the table */
 }
 
+/* Table styles */
 table {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.6); /* White background with 40% opacity */
@@ -57,7 +99,8 @@ td:last-child {
     border-right: none;
 }
 
-.btn {
+/* Button styles */
+.btn, .back-btn {
     background-color: white;
     border-radius: 90px;
     display: block;
@@ -70,27 +113,11 @@ td:last-child {
     border: 1px solid #ddd; /* Added border to match table cells */
 }
 
-.btn:hover {
+.btn:hover, .back-btn:hover {
     background-color: rgb(144, 144, 144);
 }
 
-.back-btn {
-    background-color: white;
-    border-radius: 90px;
-    display: block;
-    width: 50%;
-    margin-top: 20px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    color: black; /* Added to ensure text color is visible */
-    border: 1px solid #ddd; /* Added border to match table cells */
-    font-size: 14px;
-}
-.back-btn:hover {
-    background-color: rgb(144, 144, 144);
-}
-
+/* Close button styles */
 .close-btn {
     background-color: #ddd;
     border: none;
@@ -109,15 +136,16 @@ td:last-child {
     background-color: #bbb;
 }
 
+/* Modal styles */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     background-image: url('../img/ginge.jpg'); /* Replace with the path to your image */
     background-size: cover; /* Ensures the image covers the entire background */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -128,13 +156,77 @@ td:last-child {
     position: relative;
     margin: auto; /* Adjusted for spacing */
     padding: 20px;
-    width: 80%;
-    max-width: 1000px;
     border-radius: 10px;
     text-align: center; /* Center align content */
 }
 
+/* Comparison table styles */
+.modal-content table {
+    width: 100%; /* Adjusted width for smaller devices */
+    table-layout: fixed; /* Fixed layout to enforce equal column widths */
+    margin: 0 auto; /* Center align the table */
+}
+
+.modal-content th, .modal-content td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.modal-content th {
+    background-color: #f2f2f2;
+    border-top: none;
+}
+
+/* Equal width for all columns */
+.comparison-date, .comparison-weight {
+    width: 33.33%; /* Equal width for three columns */
+}
+
+/* Open modal button hover effect */
 .openModalBtn:hover {
     color: rgb(165, 0, 0);
     cursor: pointer;
+}
+
+/* Compare section styling */
+.compare-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.compare-section select {
+    width: 40%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.compare-btn {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    color: black;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.compare-btn:hover {
+    background-color: rgb(144, 144, 144);
+}
+
+/* Media query for smaller devices */
+@media (max-width: 1000px) {
+    .modal-content table {
+        width: 100%;
+    }
+    .container {
+        width: 100%;
+    }
 }

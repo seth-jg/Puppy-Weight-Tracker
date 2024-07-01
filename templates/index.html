@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puppy Weights</title>
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
@@ -16,11 +18,11 @@
                 <div class="title">
                     <h2>Midnight Weights</h2>
                 </div>
-                <table>
+                <table id="MidnightTable">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Weight</th>
+                            <th>Weight (g)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,8 +34,19 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="compare-section">
+                    <select id="compareSelectorMidnight">
+                        <option value="">Select a Puppy</option>
+                        {% for name in names %}
+                            {% if name != 'Midnight' %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button class="compare-btn" onclick="compareWeights('Midnight')">Compare</button>                    
+                </div>
             </div>
-            <button class="close-btn close-bottom" onclick="closeModal('MidnightModal')">Close</button> <!-- Close button below the table -->
+            <button class="close-btn close-bottom" onclick="closeModal('MidnightModal')">Close</button>
         </div>
     </div>
 
@@ -44,11 +57,11 @@
                 <div class="title">
                     <h2>Trevor Weights</h2>
                 </div>
-                <table>
+                <table id="TrevorTable">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Weight</th>
+                            <th>Weight (g)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +73,19 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="compare-section">
+                    <select id="compareSelectorTrevor">
+                        <option value="">Select a Puppy</option>
+                        {% for name in names %}
+                            {% if name != 'Trevor' %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button class="compare-btn" onclick="compareWeights('Trevor')">Compare</button>                    
+                </div>
             </div>
-            <button class="close-btn close-bottom" onclick="closeModal('TrevorModal')">Close</button> <!-- Close button below the table -->
+            <button class="close-btn close-bottom" onclick="closeModal('TrevorModal')">Close</button>
         </div>
     </div>
 
@@ -72,11 +96,11 @@
                 <div class="title">
                     <h2>CC Weights</h2>
                 </div>
-                <table>
+                <table id="CCTable">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Weight</th>
+                            <th>Weight (g)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,8 +112,19 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="compare-section">
+                    <select id="compareSelectorCC">
+                        <option value="">Select a Puppy</option>
+                        {% for name in names %}
+                            {% if name != 'CC' %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button class="compare-btn" onclick="compareWeights('CC')">Compare</button>                    
+                </div>
             </div>
-            <button class="close-btn close-bottom" onclick="closeModal('CCModal')">Close</button> <!-- Close button below the table -->
+            <button class="close-btn close-bottom" onclick="closeModal('CCModal')">Close</button>
         </div>
     </div>
 
@@ -100,11 +135,11 @@
                 <div class="title">
                     <h2>Lilith Weights</h2>
                 </div>
-                <table>
+                <table id="LilithTable">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Weight</th>
+                            <th>Weight (g)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,8 +151,19 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="compare-section">
+                    <select id="compareSelectorLilith">
+                        <option value="">Select a Puppy</option>
+                        {% for name in names %}
+                            {% if name != 'Lilith' %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button class="compare-btn" onclick="compareWeights('Lilith')">Compare</button>                    
+                </div>
             </div>
-            <button class="close-btn close-bottom" onclick="closeModal('LilithModal')">Close</button> <!-- Close button below the table -->
+            <button class="close-btn close-bottom" onclick="closeModal('LilithModal')">Close</button>
         </div>
     </div>
 
@@ -128,11 +174,11 @@
                 <div class="title">
                     <h2>Raven Weights</h2>
                 </div>
-                <table>
+                <table id="RavenTable">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Weight</th>
+                            <th>Weight (g)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -144,11 +190,32 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="compare-section">
+                    <select id="compareSelectorRaven">
+                        <option value="">Select a Puppy</option>
+                        {% for name in names %}
+                            {% if name != 'Raven' %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button class="compare-btn" onclick="compareWeights('Raven')">Compare</button>                    
+                </div>
             </div>
-            <button class="close-btn close-bottom" onclick="closeModal('RavenModal')">Close</button> <!-- Close button below the table -->
+            <button class="close-btn close-bottom" onclick="closeModal('RavenModal')">Close</button>
         </div>
     </div>
 
+    <!-- Dropdown Menu for Date Selection -->
+    <div class="title">
+        <select id="dateSelector" onchange="updateTable()">
+            {% for date in dates %}
+            <option value="{{ date }}" {% if date == selected_date %}selected{% endif %}>{{ date }}</option>
+            {% endfor %}
+        </select>
+    </div>    
+
+    <!-- Table to display latest weights -->
     <div class="container">
         <table>
             <thead>
@@ -161,59 +228,111 @@
                 {% for name, weight in latest_data %}
                 <tr>
                     <td><span class="openModalBtn" data-modal-id="{{ name }}Modal">{{ name }}</span></td>
-                    <td>{{ weight }}</td>
+                    <td><span class="openModalBtn" data-modal-id="{{ name }}Modal">{{ weight }}</span></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     
+    <!-- Button to add new weight -->
     <div class="title">
         <a href="{{ url_for('new_weight_page') }}" class="btn">Add New Weight</a>
     </div>
 
+    <!-- Instruction for user -->
+    <div class="title">
+        <p>Click on name or weight to get history of selected puppy</p>
+    </div>
+
+    <!-- JavaScript code to handle interactions -->
     <script>
-        // Function to open modal
-        function openModal(modalId) {
-            var modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden"; // Prevent scrolling of background content
-            } else {
-                console.error("Modal with ID '" + modalId + "' not found.");
-            }
+        // Function to update table based on selected date
+        function updateTable() {
+            var selectedDate = document.getElementById('dateSelector').value;
+            window.location.href = `/?date=${selectedDate}`;
         }
-    
+
+
         // Function to close modal
         function closeModal(modalId) {
             var modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto"; // Restore scrolling to background content
-            } else {
-                console.error("Modal with ID '" + modalId + "' not found.");
-            }
+            modal.style.display = 'none';
         }
-    
-        // Get all modal open buttons
-        var modalBtns = document.getElementsByClassName("openModalBtn");
-    
-        // Attach click event listener to each modal open button
-        for (var i = 0; i < modalBtns.length; i++) {
-            modalBtns[i].addEventListener('click', function() {
-                var modalId = this.getAttribute('data-modal-id');
-                openModal(modalId);
+
+        // Function to compare weights and update the table
+        function compareWeights(puppyName) {
+            var selectedPuppy = document.getElementById('compareSelector' + puppyName).value;
+
+            if (!selectedPuppy) {
+                alert("Please select a puppy to compare.");
+                return;
+            }
+
+            var url = `/compare_weights?puppy1=${puppyName}&puppy2=${selectedPuppy}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    updateComparisonTable(puppyName, selectedPuppy, data);
+                })
+                .catch(error => console.error('Error fetching comparison data:', error));
+        }
+
+        // Open modals on click
+        var modalBtns = document.getElementsByClassName('openModalBtn');
+        Array.from(modalBtns).forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var modalId = btn.getAttribute('data-modal-id');
+                var modal = document.getElementById(modalId);
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modals on click outside the modal
+        window.onclick = function(event) {
+            var modals = document.getElementsByClassName('modal');
+            Array.from(modals).forEach(function(modal) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
             });
         }
-    
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                var modalId = event.target.id;
-                closeModal(modalId);
-            }
+
+        // Function to update the comparison table in the modal
+        function updateComparisonTable(puppy1, puppy2, data) {
+            var modalId1 = puppy1 + 'Modal';
+            var modalId2 = puppy2 + 'Modal';
+
+            var table1 = document.getElementById(modalId1).querySelector('table');
+            var table2 = document.getElementById(modalId2).querySelector('table');
+
+            // Clear previous table headers and rows
+            var thead1 = table1.querySelector('thead tr');
+            var thead2 = table2.querySelector('thead tr');
+            var tbody1 = table1.querySelector('tbody');
+            var tbody2 = table2.querySelector('tbody');
+
+            thead1.innerHTML = `<th>Date</th><th>${puppy1} Weights</th><th>${puppy2} Weights</th>`;
+            thead2.innerHTML = `<th>Date</th><th>${puppy1} Weights</th><th>${puppy2} Weights</th>`;
+
+            // Clear previous rows
+            tbody1.innerHTML = '';
+            tbody2.innerHTML = '';
+
+            data.forEach(row => {
+                // Create rows for puppy1 modal
+                var tr1 = document.createElement('tr');
+                tr1.innerHTML = `<td class="comparison-date">${row.date}</td><td class="comparison-weight">${row.weight1}</td><td class="comparison-weight">${row.weight2}</td>`;
+                tbody1.appendChild(tr1);
+
+                // Create rows for puppy2 modal
+                var tr2 = document.createElement('tr');
+                tr2.innerHTML = `<td class="comparison-date">${row.date}</td><td class="comparison-weight">${row.weight1}</td><td class="comparison-weight">${row.weight2}</td>`;
+                tbody2.appendChild(tr2);
+            });
         }
     </script>
-    
+
 </body>
 </html>
