@@ -1,5 +1,4 @@
 /* General styles */
-
 body {
     background-image: url('../img/trixie.jpg'); /* Replace with the path to your image */
     background-size: cover; /* Ensures the image covers the entire background */
@@ -227,6 +226,12 @@ td:last-child {
         width: 100%;
     }
     .container {
-        width: 100%;
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding-left: 18px;
     }
 }

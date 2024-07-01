@@ -9,7 +9,7 @@
         <h1>Puppy Weights</h1>
     </div>
     <div class="container">
-        <form method="POST" action="{{ url_for('new_weight_page') }}">
+        <form id="weightForm" method="POST" action="{{ url_for('new_weight_page') }}">
             <table>
                 <thead>
                     <tr>
@@ -27,12 +27,27 @@
                 </tbody>
             </table>
             <div class="title">
-                <button type="submit" class="btn">Submit</button>
+                <!-- Use type="button" to prevent default form submission -->
+                <button type="button" class="btn" style="font-size: 25px;" onclick="validateAndSubmitForm()">Submit</button>
             </div>
         </form>
         <div class="title">
             <a href="{{ url_for('index') }}" class="back-btn">Back</a>
         </div>
     </div>
+
+    <script>
+        // Function to handle form submission
+        function validateAndSubmitForm() {
+            var userInput = prompt("Enter pin to submit weights:");
+
+            // Check if user input is '1'
+            if (userInput == '1') {
+                document.getElementById('weightForm').submit(); // Submit the form
+            } else {
+                alert("You entered an invalid pin.");
+            }
+        }
+    </script>
 </body>
 </html>
