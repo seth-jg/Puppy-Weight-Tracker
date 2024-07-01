@@ -3,6 +3,11 @@ import os
 import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from datetime import datetime
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -56,6 +61,56 @@ def get_latest_column_and_names(file_path):
     weights = df[latest_column].tolist() if latest_column != 'No weights recorded' else ['N/A'] * len(names)
     return list(zip(names, weights)), list(df.columns[1:])  # Also return list of dates
 
+# Function to perform polynomial regression and save the graph for each puppy
+def polynomial_regression_forecast(file_path, degree=3):
+    data = load_data(file_path)
+
+    # Extract the dates
+    dates = data.columns[1:]
+
+    # Convert the dates to a datetime format
+    dates = pd.to_datetime(dates)
+
+    # Iterate over each row in the dataset
+    for index, row in data.iterrows():
+        puppy_name = row['Name']
+        weights = row[1:].values.astype(float)
+
+        # Prepare the data
+        df = pd.DataFrame({'date': dates, 'weight': weights})
+        df.set_index('date', inplace=True)
+        df['day_number'] = np.arange(len(df))
+        X = df['day_number'].values.reshape(-1, 1)
+        y = df['weight'].values
+
+        # Create a polynomial regression model
+        model = make_pipeline(PolynomialFeatures(degree), LinearRegression())
+        model.fit(X, y)
+
+        # Predict for the next 7 days
+        last_day = df['day_number'].iloc[-1]
+        future_days = np.arange(last_day + 1, last_day + 8).reshape(-1, 1)
+        future_predictions = model.predict(future_days)
+
+        # Create future dates
+        future_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=7)
+
+        # Plot the data and the predictions
+        plt.figure(figsize=(10, 6))
+        plt.plot(df.index, df['weight'], label='Actual Data', marker='o')
+        plt.plot(future_dates, future_predictions, label='Predicted Data', marker='x', linestyle='--')
+        plt.xlabel('Date')
+        plt.ylabel('Weight')
+        plt.title(f'Weight Prediction for {puppy_name} for the Next 7 Days')
+        plt.legend()
+        plt.grid(True)
+        
+        # Save the plot as a JPG file
+        plt.savefig(f'{puppy_name}_weight_prediction.jpg')
+        plt.close()
+
+        print(f'The graph for {puppy_name} has been saved as {puppy_name}_weight_prediction.jpg')
+
 # Route for the home page
 @app.route('/')
 def index():
@@ -85,7 +140,6 @@ def index():
                            names=df['Name'],
                            selected_date=date)
 
-
 # Route for adding new weight page
 @app.route('/new_weight_page', methods=["GET", "POST"])
 def new_weight_page():
@@ -94,6 +148,7 @@ def new_weight_page():
         weights = request.form.getlist('weights[]')
         weights = [float(weight) for weight in weights]  # Convert string inputs to floats
         add_timestamped_column(csv_file_path, weights)
+        polynomial_regression_forecast(csv_file_path)  # Call the function to generate graphs
         return redirect(url_for("index"))
     return render_template('update.html', latest_data=latest_data)
 

@@ -9,7 +9,10 @@
 <body>
     <div class="title">
         <h1>Puppy Weights</h1>
+        <p style="margin-top: 0px;">Click on name or weight to get history of selected puppy</p>
     </div>
+
+    <!-- Modals -->
 
     <!-- Midnight Modal -->
     <div id="MidnightModal" class="modal">
@@ -206,6 +209,24 @@
         </div>
     </div>
 
+    <div id="puppyGraphModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <div class="title">
+                    <h2>Puppy Weight Graphs/ Predictions</h2>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='img/Trevor_weight_prediction.jpg') }}" style="width: 100%; margin-bottom: 20px;">
+                    <img src="{{ url_for('static', filename='img/Midnight_weight_prediction.jpg') }}" style="width: 100%; margin-bottom: 20px;">
+                    <img src="{{ url_for('static', filename='img/CC_weight_prediction.jpg') }}" style="width: 100%; margin-bottom: 20px;">
+                    <img src="{{ url_for('static', filename='img/Lilith_weight_prediction.jpg') }}" style="width: 100%; margin-bottom: 20px;">
+                    <img src="{{ url_for('static', filename='img/Raven_weight_prediction.jpg') }}" style="width: 100%; margin-bottom: 20px;">
+                </div>
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('puppyGraphModal')">Close</button>
+        </div>
+    </div>
+
     <!-- Dropdown Menu for Date Selection -->
     <div class="title">
         <select id="dateSelector" onchange="updateTable()">
@@ -235,14 +256,10 @@
         </table>
     </div>
     
-    <!-- Button to add new weight -->
+    <!-- Buttons -->
     <div class="title">
         <a href="{{ url_for('new_weight_page') }}" class="btn">Add New Weight</a>
-    </div>
-
-    <!-- Instruction for user -->
-    <div class="title">
-        <p>Click on name or weight to get history of selected puppy</p>
+        <button class="btn" onclick="openGraphModal()" style="font-size: 25px;">Show Graphs</button>
     </div>
 
     <!-- JavaScript code to handle interactions -->
@@ -253,6 +270,11 @@
             window.location.href = `/?date=${selectedDate}`;
         }
 
+        // Function to open puppy graph modal
+        function openGraphModal() {
+            var modal = document.getElementById('puppyGraphModal');
+            modal.style.display = 'block';
+        }
 
         // Function to close modal
         function closeModal(modalId) {
