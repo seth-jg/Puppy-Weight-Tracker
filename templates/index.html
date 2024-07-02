@@ -209,6 +209,7 @@
         </div>
     </div>
 
+    <!-- Graph modal -->
     <div id="puppyGraphModal" class="modal">
         <div class="modal-content">
             <div class="container">
@@ -224,6 +225,97 @@
                 </div>
             </div>
             <button class="close-btn close-bottom" onclick="closeModal('puppyGraphModal')">Close</button>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="puppyGalleryModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <div class="title">
+                    <h2>Puppy Gallery</h2>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/ebby.jpg') }}" onclick="openFullscreen(this)">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/raven1.webp') }}" onclick="openFullscreen(this)">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/gallery_open_img.webp') }}" onclick="openFullscreen(this)">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/ginge.jpg') }}" onclick="openFullscreen(this)">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/portrait-all-pups.jpg') }}" onclick="openFullscreen(this)">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='img/trixie.jpg') }}" onclick="openFullscreen(this)">
+                    </div>
+                </div>
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('puppyGalleryModal')">Close</button>
+        </div>
+    </div> 
+    
+    <!-- Fullscreen Overlay for Images -->
+    <div class="fullscreen-overlay" onclick="closeFullscreen()">
+        <img class="fullscreen-image">
+    </div>
+
+
+    <!-- Achievement Modal -->
+    <div id="puppyAchievementModal" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <div class="title">
+                    <h2>Puppy Achievement</h2>
+                </div>
+                <div class="achievement-container">
+                    <div class="achievement-item">
+                        <h3>Opened Eyes</h3>
+                        <img src="{{ url_for('static', filename='img/open_eye_badge.webp') }}">
+                        <p>Trevor (Thursday 27/06)</p>
+                        <p>Midnight (Friday 28/06)</p>
+                        <p>CC (Saturday 29/06)</p>
+                        <p>Lilith (Thursday 27/06)</p>
+                        <p>Raven (Friday 28/06)</p>
+                    </div>
+                
+                    <div class="achievement-item">
+                        <h3>Eye colour change</h3>
+                        <img src="{{ url_for('static', filename='img/puppy_eye_change.webp') }}">
+                        <p>Trevor</p>
+                        <p>Midnight</p>
+                        <p>CC</p>
+                        <p>Lilith</p>
+                        <p>Raven</p>
+                    </div>
+                
+                    <div class="achievement-item">
+                        <h3>Started Walking</h3>
+                        <img src="{{ url_for('static', filename='img/walking_badge.webp') }}">
+                        <p>Trevor</p>
+                        <p>Midnight</p>
+                        <p>CC</p>
+                        <p>Lilith</p>
+                        <p>Raven</p>
+                    </div>
+                
+                    <div class="achievement-item">
+                        <h3>Puppy Escape</h3>
+                        <img src="{{ url_for('static', filename='img/puppy_escaping.webp') }}">
+                        <p>Trevor</p>
+                        <p>Midnight</p>
+                        <p>CC</p>
+                        <p>Lilith</p>
+                        <p>Raven</p>
+                    </div>
+                </div>
+            </div>
+            <button class="close-btn close-bottom" onclick="closeModal('puppyAchievementModal')">Close</button>
         </div>
     </div>
 
@@ -260,6 +352,22 @@
     <div class="title">
         <a href="{{ url_for('new_weight_page') }}" class="btn">Add New Weight</a>
         <button class="btn" onclick="openGraphModal()" style="font-size: 25px;">Show Graphs</button>
+    </div>
+
+    <!-- Achievement and Gallery -->
+    <div class="image-gallery-container">
+        <div class="image-wrapper">
+            <span class="openModalBtn" data-modal-id="puppyGalleryModal">
+                <img src="{{ url_for('static', filename='img/gallery_open_img.webp') }}">
+                <h2>Gallery</h2>
+            </span>
+        </div>
+        <div class="image-wrapper">
+            <span class="openModalBtn" data-modal-id="puppyAchievementModal">
+                <img src="{{ url_for('static', filename='img/achievement_open_img.webp') }}">
+                <h2>Achievement</h2>
+            </span>
+        </div>
     </div>
 
     <!-- JavaScript code to handle interactions -->
@@ -321,38 +429,20 @@
             });
         }
 
-        // Function to update the comparison table in the modal
-        function updateComparisonTable(puppy1, puppy2, data) {
-            var modalId1 = puppy1 + 'Modal';
-            var modalId2 = puppy2 + 'Modal';
+        // Function to open fullscreen image
+        function openFullscreen(imageElement) {
+            const imageUrl = imageElement.src;
+            const fullscreenImage = document.querySelector('.fullscreen-image');
+            fullscreenImage.src = imageUrl;
 
-            var table1 = document.getElementById(modalId1).querySelector('table');
-            var table2 = document.getElementById(modalId2).querySelector('table');
+            const fullscreenOverlay = document.querySelector('.fullscreen-overlay');
+            fullscreenOverlay.style.display = 'flex';
+        }
 
-            // Clear previous table headers and rows
-            var thead1 = table1.querySelector('thead tr');
-            var thead2 = table2.querySelector('thead tr');
-            var tbody1 = table1.querySelector('tbody');
-            var tbody2 = table2.querySelector('tbody');
-
-            thead1.innerHTML = `<th>Date</th><th>${puppy1} Weights</th><th>${puppy2} Weights</th>`;
-            thead2.innerHTML = `<th>Date</th><th>${puppy1} Weights</th><th>${puppy2} Weights</th>`;
-
-            // Clear previous rows
-            tbody1.innerHTML = '';
-            tbody2.innerHTML = '';
-
-            data.forEach(row => {
-                // Create rows for puppy1 modal
-                var tr1 = document.createElement('tr');
-                tr1.innerHTML = `<td class="comparison-date">${row.date}</td><td class="comparison-weight">${row.weight1}</td><td class="comparison-weight">${row.weight2}</td>`;
-                tbody1.appendChild(tr1);
-
-                // Create rows for puppy2 modal
-                var tr2 = document.createElement('tr');
-                tr2.innerHTML = `<td class="comparison-date">${row.date}</td><td class="comparison-weight">${row.weight1}</td><td class="comparison-weight">${row.weight2}</td>`;
-                tbody2.appendChild(tr2);
-            });
+        // Function to close fullscreen image
+        function closeFullscreen() {
+            const fullscreenOverlay = document.querySelector('.fullscreen-overlay');
+            fullscreenOverlay.style.display = 'none';
         }
     </script>
 
